@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 const voterSchema = new Schema(
     {
         name: { type: String, required: true},
-        dob: {type: Date, required: true},
-        age: {tyep: Integer, required: true},
+        dob: {type: String, required: true},
+        age: {type: String, required: true},
         email: {type: String},
         aadharId: {type: String},
         panId: {type: String},
         locale: {type: String, required: true},
-        localeId: {type: Integer, required: true},
+        localeId: {type: String, required: true},
         reqLocale: {type: String},
-        reqLocaleId: {type: Integer},
-        password: {type: String, required: password}
+        reqLocaleId: {type: String},
+        password: {type: String, required: true}
     }
 );
 

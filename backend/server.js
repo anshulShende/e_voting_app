@@ -17,6 +17,9 @@ conn.once('open', () => {
     console.log("Mongodb connection established successfully");
 });
 
+const voterRoutes = require('./routes/voters');
+app.use('/voters', voterRoutes)
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
