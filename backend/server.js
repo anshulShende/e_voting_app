@@ -23,6 +23,9 @@ app.use('/voters', voterRoutes)
 const adminRoutes = require('./routes/admin');
 app.use('/admin', adminRoutes);
 
+const candidateRoutes = require('./routes/candidates');
+app.use('/candidates', candidateRoutes);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
 
   router.route('/add').post((req, res) => {
     const name = req.body.name;
-    const dob = Date.parse(req.body.dob);
+    const dob = (req.body.dob);
     const gender = req.body.gender;
     const age = req.body.age;
     const email = req.body.email;

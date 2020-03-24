@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 const candidateSchema = new Schema(
     {
         name: { type: String, required: true},
-        dob: {type: Date, required: true},
-        age: {tyep: Integer, required: true},
+        dob: {type: String, required: true},
+        gender: {type: String, required: true},
+        age: {type: String, required: true},
         email: {type: String},
         locale: {type: String, required: true}
     }
