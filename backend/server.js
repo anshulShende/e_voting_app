@@ -29,6 +29,9 @@ app.use('/candidates', candidateRoutes);
 const localeRoutes = require('./routes/locale');
 app.use('/locale', localeRoutes);
 
+const superAdminRoutes = require('./routes/superAdmin');
+app.use('/superAdmin', superAdminRoutes);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
