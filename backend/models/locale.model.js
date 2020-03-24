@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const localeSchema = new Schema(
     {
         locale: {type: String, required: true},
-        localeName: {type: String, required: true},
-        localeId: {type: Integer, required: true},
+        localeId: {type: String, required: true},
         localeIdName: {type: String, required: true}
     }
 );
