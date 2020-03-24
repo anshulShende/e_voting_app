@@ -20,6 +20,9 @@ conn.once('open', () => {
 const voterRoutes = require('./routes/voters');
 app.use('/voters', voterRoutes)
 
+const adminRoutes = require('./routes/admin');
+app.use('/admin', adminRoutes);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

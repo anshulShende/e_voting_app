@@ -10,6 +10,7 @@ router.route('/').get((req, res) => {
   router.route('/add').post((req, res) => {
     const name = req.body.name;
     const dob = Date.parse(req.body.dob);
+    const gender = req.body.gender;
     const age = req.body.age;
     const email = req.body.email;
     const aadharId = req.body.aadharId;
@@ -23,6 +24,7 @@ router.route('/').get((req, res) => {
     const newVoter = new Voters({
       name,
       dob,
+      gender,
       age,
       email,
       aadharId,
@@ -37,6 +39,12 @@ router.route('/').get((req, res) => {
     newVoter.save()
     .then(() => res.json('New Voter added!'))
     .catch(err => res.status(400).json('Error: ' + err));
+  });
+
+  router.route('/:locale').get((req, res) => {
+    Voters.find({ locale: req.params.locale })
+      .then(voters => res.json(voters))
+      .catch(err => res.status(400).json('Error: ' + err));
   });
 
   module.exports = router;
