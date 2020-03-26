@@ -1,57 +1,66 @@
 import React, { Component } from 'react';
-import {
-    Button
-  } from 'semantic-ui-react';
-
 class Homepage extends Component {
     render() {
         return (
-        <div class=" ui container text-align'center' ">
+        <div class="ui container text-align'center'">
             <div class="ui four cards">
                 <div class="card">
                     <div class="content">
-                        <div class="header">For Voters</div>
-                        <div class="meta">Check All Voter Related Queries and Info</div>
-                        <div class="ui animated  primary button" tabindex="0">
-                            <div class="visible content">Next</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
+                        <div class="header">Voter Services</div>
+                        <div class="description">
+                            All voter Related Information and Queries
+                        </div>
+                    </div>
+                    <div class="ui primary bottom attached buttons">
+                        <div class="ui right labeled icon button">
+                            <i class="right arrow icon"></i>
+                            Voters
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="content">
-                        <div class="header">Veronika Ossi</div>
-                        <div class="meta">Friend</div>
-                        <Button primary animated='fade'>
-                            <Button.Content visible>Check the list of Candidates</Button.Content>
-                            <Button.Content hidden>Voters</Button.Content>
-                        </Button>
+                    <div class="header">Candidate Services</div>
+                    <div class="description">
+                        Check List of All Candidates
+                    </div>
+                    </div>
+                    <div class="ui primary bottom attached buttons">
+                        <div class="ui right labeled icon button">
+                            <i class="right arrow icon"></i>
+                                Candidates
+                        </div>
+                    </div>
+                 </div>
+                <div class="card">
+                    <div class="content">
+                    <div class="header">Staff Login</div>
+                    <div class="description">
+                        All Staff Management services
+                    </div>
+                    </div>
+                    <div class="ui primary bottom attached buttons">
+                        <div class="ui right labeled icon button">
+                            <i class="right arrow icon"></i>
+                            Staff Login
+                        </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="content">
-                        <div class="header">Jenny Hess</div>
-                        <div class="meta">Friend</div>
-                        <Button primary animated='fade'>
-                            <Button.Content visible>Admin Login</Button.Content>
-                            <Button.Content hidden>For Staff</Button.Content>
-                        </Button>
+                    <div class="header">Admin Login</div>
+                    <div class="description">
+                        Contains all Administrative Functionalities and Services
                     </div>
-                </div>
-                <div class="card">
-                    <div class="content">
-                        <div class="header">Jenny Hess</div>
-                        <div class="meta">Friend</div>
-                        <Button primary animated='fade'>
-                    <Button.Content visible>Super Admin Login</Button.Content>
-                    <Button.Content hidden>For Election Commission</Button.Content>
-                </Button>
+                    </div>
+                    <div class="ui primary bottom attached buttons">
+                        <div class="ui right labeled icon button">
+                            <i class="right arrow icon"></i>
+                            Admin Login
+                        </div>
                     </div>
                 </div>
             </div>
-             
         </div>
         )
     }
