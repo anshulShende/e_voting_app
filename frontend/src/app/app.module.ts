@@ -8,6 +8,7 @@ import { VoterComponent } from './components/voter/voter.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes : Routes = [
   {
@@ -49,6 +50,7 @@ const routes : Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   exports: [
     RouterModule

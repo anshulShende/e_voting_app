@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/data.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-voter',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VoterComponent implements OnInit {
 
-  constructor() { }
+  voters: [];
+  constructor(
+    private dataservice : DataService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  showAllVoters(){
+    console.log("here");
+    this.dataservice.showAllVoters().subscribe( (response:any) => {
+      this.voters = response;
+      console.log(response);
+    },(err: HttpErrorResponse) => {
+      console.log("Login Error");
+    });
+  }
 }
