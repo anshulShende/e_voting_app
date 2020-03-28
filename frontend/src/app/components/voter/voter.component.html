@@ -1,1 +1,33 @@
-<p>voter works!</p>
+<div class="container">
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-md align-center">Show List of All Voters</button>
+    </div>
+    <div class="divider"><span></span><span>OR</span><span></span></div>
+    <form>
+        <h2 class="alert alert-primary text-center">Search with Filters</h2>
+        <div class="form-group form-row">
+            <div class="col">
+                <label for="exampleInputEmail1">First Name</label>
+                <input type="text" class="form-control" placeholder="First name">
+            </div>
+            <div class="col">
+                <label for="exampleInputEmail1">Last Name</label>
+                <input type="text" class="form-control" placeholder="Last name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Locale</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>Choose...</option>
+                <option value="1">Kasarvadavali</option>
+                <option value="2">Manpada</option>
+                <option value="3">Naupada</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary btn-md btn-block block">Search</button>
+    </form>
+</div>
