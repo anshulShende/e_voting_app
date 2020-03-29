@@ -32,22 +32,26 @@
     </form>
 </div>
 <div class="container">
-    <div class="card-deck p-2">
-        <div class="card-columns">
-            <div *ngFor="let obj of voters" class="card" style="width: 18rem;">
-                <img class="card-img-top" src="../../../assets/profile.png" alt="Card image cap">
-                <div class="card-body">
-                    <h2 class="card-title text-center">{{obj.name}}</h2>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Gender: {{obj.gender}}</li>
-                    <li class="list-group-item">Age: {{obj.age}}</li>
-                    <li class="list-group-item">Email: {{obj.email}}</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">See More Details</a>
-                </div>
+    <div class="grid-container"> 
+        <div *ngFor="let obj of voters" class="card" style="width: 18rem;">
+            <img class="card-img-top" src="../../../assets/profile.png" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title text-center">{{obj.name}}</h2>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Gender: {{obj.gender}}</li>
+                <li class="list-group-item">Age: {{obj.age}}</li>
+                <li class="list-group-item">Email: {{obj.email}}</li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">See More Details</a>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+        
