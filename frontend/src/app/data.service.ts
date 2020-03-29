@@ -13,4 +13,14 @@ export class DataService {
     console.log("in data services")
     return this.http.get('/getAllVoters');
   }
+
+  authenticateStaff(name, password, locale, localeId){
+    console.log("in authenticate Staff");
+    let body = new HttpParams();
+    body = body.set('name', name);
+    body = body.set('password', password);
+    body = body.set('locale', locale);
+    body = body.set('localeId',localeId); 
+    return this.http.post('/authenticateStaff', body);
+  }
 }

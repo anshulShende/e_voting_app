@@ -1,1 +1,41 @@
-<p>staff works!</p>
+<div class="container p-4 border border-dark">
+    <h3 class="alert alert-primary text-center" role="alert">
+        Staff Login
+    </h3>
+    <form (ngSubmit)="staffLogin(name.value, password.value, locale.value, localeId.value)">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Name</label>
+              <input type="text" #name class="form-control" id="email" placeholder="Name">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Password</label>
+              <input type="password" #password class="form-control" id="password" placeholder="Password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Locale</label>
+            <select #locale class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>Choose...</option>
+                <option value="Kasarvadavali">Kasarvadavali</option>
+                <option value="Manpada">Manpada</option>
+                <option value="Naupada">Naupada</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Locale Id</label>
+            <select #localeId class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref2">
+                <option selected>Choose...</option>
+                <option value="01">Sector-01</option>
+                <option value="02">Sector-02</option>
+            </select>
+        </div>
+        <div *ngIf="isPasswordInvalid" class="alert alert-danger" role="alert">
+            Invalid Password
+        </div>
+        <div *ngIf="isloginError" class="alert alert-danger" role="alert">
+            Authentication Failed! Please Try again
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+    </form>
+</div>

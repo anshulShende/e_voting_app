@@ -9,6 +9,7 @@ import { CandidateComponent } from './components/candidate/candidate.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 const routes : Routes = [
   {
@@ -50,7 +51,8 @@ const routes : Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   exports: [
     RouterModule

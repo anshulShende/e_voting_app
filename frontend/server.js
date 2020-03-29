@@ -26,6 +26,22 @@ app.get('/getAllVoters', (req,res) => {
     });
 });
 
+app.post('/authenticateStaff', (req,res) => {
+    http.get(`http://localhost:5000/admin/manpada/01`, (resp) => {
+        var body = [];
+        resp.on('data', function (data) {
+            body.push(data);
+        });
+
+        resp.on('end', function () {
+
+            res.send(body.join(''));
+        });
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/frontend/'));
 });
