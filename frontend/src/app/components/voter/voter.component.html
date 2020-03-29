@@ -4,7 +4,7 @@
     </div>
     <div class="divider"><span></span><span>OR</span><span></span></div>
     <form>
-        <h2 class="alert alert-primary text-center">Search with Filters</h2>
+        <h3 class="alert alert-primary text-center">Search with Filters</h3>
         <div class="form-group form-row">
             <div class="col">
                 <label for="exampleInputEmail1">First Name</label>
@@ -34,18 +34,18 @@
 <div class="container">
     <div class="card-deck p-2">
         <div class="card-columns">
-            <div *ngFor="let obj of voters" class="card" style="max-width: 18rem;">
+            <div *ngFor="let obj of voters" class="card" style="width: 18rem;">
                 <img class="card-img-top" src="../../../assets/profile.png" alt="Card image cap">
                 <div class="card-body">
-                <h2 class="card-title text-center">{{obj.name}}</h2>
+                    <h2 class="card-title text-center">{{obj.name}}</h2>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item">Gender: {{obj.gender}}</li>
-                <li class="list-group-item">Age: {{obj.age}}</li>
-                <li class="list-group-item">Email: {{obj.email}}</li>
+                    <li class="list-group-item">Gender: {{obj.gender}}</li>
+                    <li class="list-group-item">Age: {{obj.age}}</li>
+                    <li class="list-group-item">Email: {{obj.email}}</li>
                 </ul>
                 <div class="card-body">
-                <a href="#" class="card-link">See More Details</a>
+                    <a href="#" class="card-link">See More Details</a>
                 </div>
             </div>
         </div>
