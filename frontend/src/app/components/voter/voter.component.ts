@@ -10,20 +10,31 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class VoterComponent implements OnInit {
 
   voters: [];
+  isResult: boolean;
+
   constructor(
     private dataservice : DataService
-  ) { }
+  ) {
+    this.isResult = false;
+   }
 
   ngOnInit(): void {
   }
 
   showAllVoters(){
-    console.log("here");
     this.dataservice.showAllVoters().subscribe( (response:any) => {
       this.voters = response;
-      console.log(response);
+      if(this.voters.length > 0)
+        this.isResult = true;
     },(err: HttpErrorResponse) => {
       console.log("Login Error");
     });
+  }
+
+  onSearch(firstName, lastName, email, locale){
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(locale);
   }
 }
