@@ -24,6 +24,7 @@ export class CandidateComponent implements OnInit {
     this.dataService.searchcandidates(locale).subscribe( (response: any) => {
       this.candidates = response;
       this.isResult = true;
+      localStorage.setItem('locale', locale);
     });
   }
 
