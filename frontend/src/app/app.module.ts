@@ -36,7 +36,7 @@ const routes : Routes = [
   {
     path: 'election',
     component: ElectionComponent
-  }
+  },
   {
     path: '**',
     redirectTo: '/home',
