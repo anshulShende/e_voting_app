@@ -10,6 +10,7 @@ import { StaffComponent } from './components/staff/staff.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ElectionComponent } from './components/election/election.component';
 
 const routes : Routes = [
   {
@@ -45,7 +46,8 @@ const routes : Routes = [
     VoterComponent,
     CandidateComponent,
     StaffComponent,
-    AdminComponent
+    AdminComponent,
+    ElectionComponent
   ],
   imports: [
     BrowserModule,
