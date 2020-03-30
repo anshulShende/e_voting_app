@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const compiledVoting = __webpack_require__(/*! ./build/Election.json */ "./Ethereum/build/Election.json");
 
-const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x4BB008ae4f61200aD737443eD52d3294c43607b9');
+const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x02C2dE66D561D00D9D67A64E4972A8B11cA73b32');
 /* harmony default export */ __webpack_exports__["default"] = (instance);
 
 /***/ }),
@@ -256,10 +256,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../routes */ "./routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _Components_RequestRow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/RequestRow */ "./Components/RequestRow.js");
-/* harmony import */ var _Ethereum_web3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Ethereum/web3 */ "./Ethereum/web3.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Ethereum_web3__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Ethereum/web3 */ "./Ethereum/web3.js");
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -274,7 +277,39 @@ class votingInstance extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     super(...args);
 
     _defineProperty(this, "state", {
-      message: ''
+      message: '',
+      Loading: false,
+      errorMessage: '',
+      addLoading: false
+    });
+
+    _defineProperty(this, "onAddCandidates", async event => {
+      event.preventDefault();
+      const accounts = await _Ethereum_web3__WEBPACK_IMPORTED_MODULE_7__["default"].eth.getAccounts();
+      const res = await axios__WEBPACK_IMPORTED_MODULE_6___default.a.get('http://localhost:5000/candidates');
+      console.log(res.data);
+      console.log(accounts[0]);
+
+      for (var i = 2; i < 7; i++) {
+        try {
+          this.setState({
+            addLoading: true,
+            errorMessage: ''
+          });
+          await _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.addCandidate(res.data[i].name, res.data[i].partyName).send({
+            from: accounts[0]
+          });
+          _routes__WEBPACK_IMPORTED_MODULE_4__["Router"].pushRoute('/');
+        } catch (err) {
+          this.setState({
+            errorMessage: err.message
+          });
+        }
+
+        this.setState({
+          addLoading: false
+        });
+      }
     });
 
     _defineProperty(this, "onClick", async event => {
@@ -326,13 +361,13 @@ class votingInstance extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       route: "/votingTable"
     }, __jsx("a", null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       primary: true
-    }, "Voter's Info"))))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Column, null, __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      route: "/candidates/new"
-    }, __jsx("a", null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    }, "Voter's Info"))))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Column, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       primary: true,
       icon: "add circle",
-      content: "Add Candidate"
-    }))), __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      content: "Add Candidate",
+      onClick: this.onAddCandidates,
+      loading: this.state.addLoading
+    }), __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
       route: "/vote"
     }, __jsx("a", null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       floated: "right",
@@ -389,8 +424,19 @@ module.exports = routes;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\mappa\Desktop\Project\Voting App\pages\index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! C:\Users\mappa\Desktop\Project\e_voting_app\Voting App\pages\index.js */"./pages/index.js");
 
+
+/***/ }),
+
+/***/ "axios":
+/*!************************!*\
+  !*** external "axios" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ }),
 
