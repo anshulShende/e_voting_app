@@ -11,10 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true} );
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true} );
 const conn = mongoose.connection;
 conn.once('open', () => {
     console.log("Mongodb connection established successfully");
+}, 'error', (error) => {
+    console.log(error);
 });
 
 const voterRoutes = require('./routes/voters');
