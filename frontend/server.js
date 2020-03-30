@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const http = require('http');
 const https = require('https')
+const bodyParser = require('body-parser');
+
 const port = process.env.PORT || 4000;
 const app = express();
 app.use(cors());
@@ -25,9 +27,13 @@ app.get('/getAllVoters', (req,res) => {
         console.log("Error: " + err.message);
     });
 });
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.json());
 
 app.post('/authenticateStaff', (req,res) => {
-    http.get(`http://localhost:5000/admin/manpada/01`, (resp) => {
+    console.log(req.body.locale);
+    http.get(`http://localhost:5000/admin/${req.body.locale}/${req.body.localeId}`, (resp) => {
         var body = [];
         resp.on('data', function (data) {
             body.push(data);

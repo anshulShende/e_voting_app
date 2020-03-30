@@ -11,13 +11,15 @@ export class StaffComponent implements OnInit {
 
   isPasswordInvalid: boolean;
   staff: [];
-  isloginError: boolean;
+  isLoginError: boolean;
+  isLoginSuccessful: boolean;
 
   constructor(
     private dataService: DataService
   ) { 
     this.isPasswordInvalid = false;
-    this.isloginError = false;
+    this.isLoginError = false;
+    this.isLoginSuccessful = false;
   }
 
   ngOnInit(): void {
@@ -26,13 +28,17 @@ export class StaffComponent implements OnInit {
   staffLogin(name, password, locale, localeId){
     if(password === '123'){
       this.dataService.authenticateStaff(name,password,locale, localeId).subscribe( (response: any) =>{
-          if(true){
+        console.log(response['0']['name']);
+        console.log(response);
+          if(response['0']['name']  == name){
             this.staff = response;
             console.log(this.staff);
+            this.isLoginSuccessful = true;
+            localStorage.setItem('locale', response['0']['locale']);
           }
           else{
             console.log("Authentication failed");
-            this.isloginError = true;
+            this.isLoginError = true;
           }
       }, (err: HttpErrorResponse) => {
         console.log(err);
@@ -42,5 +48,10 @@ export class StaffComponent implements OnInit {
       console.log("invalid Password");
       this.isPasswordInvalid = true;
     }
+  }
+
+  onLogout(){
+    this.isLoginSuccessful=false;
+    this.staff = [];
   }
 }
