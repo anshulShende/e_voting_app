@@ -3,7 +3,7 @@ const compiledVoting = require('./build/Election.json')
 
 const instance = new web3.eth.Contract(
     JSON.parse(compiledVoting.interface),
-    '0x4BB008ae4f61200aD737443eD52d3294c43607b9'
+    '0x02C2dE66D561D00D9D67A64E4972A8B11cA73b32'
 )
 
 export default instance;

@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import Layout from '../Components/Layout'
 import voting from '../Ethereum/voting'
 import {Card, Grid, Button, Table} from 'semantic-ui-react'
-import {Link} from '../routes';
+import {Link, Router} from '../routes';
 import RequestRow from '../Components/RequestRow'
+import axios from 'axios';
 import web3 from '../Ethereum/web3'
 
 class votingInstance extends Component{
 
     state ={
         message : '',
+        Loading : false,
+        errorMessage : '',
+        addLoading : false
     }
 
     static getInitialProps = async () =>{
@@ -42,9 +46,31 @@ class votingInstance extends Component{
         });
     }
 
+    onAddCandidates = async(event) =>{
+        event.preventDefault();
+
+        const accounts = await web3.eth.getAccounts();
+        const res = await axios.get('http://localhost:5000/candidates');
+        console.log(res.data)
+        console.log(accounts[0]);
+        
+        for( var i = 2; i < 7; i++ ){
+            try{
+                this.setState({addLoading : true, errorMessage : ''})
+                await voting.methods.addCandidate(res.data[i].name,res.data[i].partyName)
+                .send({from : accounts[0]})
+                Router.pushRoute('/');
+            } catch(err){
+                this.setState({errorMessage : err.message})
+            }
+            this.setState({addLoading : false})
+        }     
+    }
+
     onClick = async(event) =>{
         event.preventDefault();
 
+        
         var largest = 0;
         var index;
 
@@ -89,15 +115,13 @@ class votingInstance extends Component{
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <Link route = '/candidates/new'>
-                                <a>
-                                    <Button 
-                                        primary 
-                                        icon = "add circle"
-                                        content = "Add Candidate" 
-                                    />
-                                </a>
-                            </Link>
+                            <Button 
+                                primary 
+                                icon = "add circle"
+                                content = "Add Candidate"
+                                onClick = {this.onAddCandidates}
+                                loading = {this.state.addLoading}
+                            />
                             <Link route = '/vote'>
                                 <a>
                                     <Button  floated = "right" primary>Go to Vote</Button>    
