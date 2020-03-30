@@ -34,6 +34,10 @@ const routes : Routes = [
     component: AdminComponent
   },
   {
+    path: 'election',
+    component: ElectionComponent
+  }
+  {
     path: '**',
     redirectTo: '/home',
   }
