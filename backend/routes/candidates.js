@@ -14,7 +14,7 @@ router.route('/add').post((req, res) => {
     const age = req.body.age;
     const email = req.body.email;
     const locale = req.body.locale;
-    
+    const partyName = req.body.partyName;
 
     const newCandidate = new candidates({
       name,
@@ -22,7 +22,8 @@ router.route('/add').post((req, res) => {
       gender,
       age,
       email,
-      locale
+      locale,
+      partyName
     });
   
     newCandidate.save()

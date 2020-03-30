@@ -8,7 +8,8 @@ const candidateSchema = new Schema(
         gender: {type: String, required: true},
         age: {type: String, required: true},
         email: {type: String},
-        locale: {type: String, required: true}
+        locale: {type: String, required: true},
+        partyName: {type: String, required: true}
     }
 );
 
