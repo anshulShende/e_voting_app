@@ -1,0 +1,13 @@
+.container{
+    margin-top: 40px;
+}
+.grid-container {
+    display: grid; /* or inline-grid */
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 1em;
+  }
+  /* stylistic properties only */
+  .grid-container {
+    justify-content: center;
+    margin: 1em;
+  }

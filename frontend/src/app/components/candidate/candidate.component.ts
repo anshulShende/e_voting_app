@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-candidate',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CandidateComponent implements OnInit {
 
-  constructor() { }
+  isResult: boolean;
+  candidates: [];
+
+  constructor(
+    private dataService: DataService
+  ) {
+    this.isResult = false;
+   }
 
   ngOnInit(): void {
+  }
+
+  onSearch(locale){
+    this.dataService.searchcandidates(locale).subscribe( (response: any) => {
+      this.candidates = response;
+      this.isResult = true;
+    });
   }
 
 }

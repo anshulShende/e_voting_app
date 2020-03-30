@@ -32,8 +32,23 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.post('/authenticateStaff', (req,res) => {
-    console.log(req.body.locale);
     http.get(`http://localhost:5000/admin/${req.body.locale}/${req.body.localeId}`, (resp) => {
+        var body = [];
+        resp.on('data', function (data) {
+            body.push(data);
+        });
+
+        resp.on('end', function () {
+
+            res.send(body.join(''));
+        });
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+});
+
+app.post('/searchCandidates', (req,res) => {
+    http.get(`http://localhost:5000/candidates/${req.body.locale}`, (resp) => {
         var body = [];
         resp.on('data', function (data) {
             body.push(data);

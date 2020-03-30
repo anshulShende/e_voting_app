@@ -23,4 +23,10 @@ export class DataService {
     body = body.set('localeId',localeId); 
     return this.http.post('/authenticateStaff', body);
   }
+
+  searchcandidates(locale){
+    let body = new HttpParams();
+    body = body.set('locale', locale);
+    return this.http.post('/searchCandidates', body);
+  }
 }
