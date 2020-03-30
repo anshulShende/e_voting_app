@@ -1,0 +1,41 @@
+.container{
+    margin-top: 5%;
+    height: 450px;
+    border-radius:10px ;
+}
+.p-4{
+background-color: #99ccff;
+}
+img{
+    height: 100%;
+    width: 100%;
+}
+.login{
+    font-size: 40px;
+    color: #4c9900;
+}
+.heading{
+    font-size: 50px;
+    margin-top: 2%;
+    color: #004c99;
+}
+hr{
+    border-top: 2px solid black;
+}
+form{
+    font-size: 20px;
+    color: #004c99;
+}
+input[type=text],input[type=password]{
+    border-radius: 20px ;
+}
+button{
+    border-radius: 20px;
+    width: 120px;
+}
+button:hover{
+    font-size: 20px;
+}
+i{
+    color: #004c99;
+}
