@@ -63,6 +63,11 @@ app.post('/searchCandidates', (req,res) => {
     });
 });
 
+app.post('/startElection', (req,res) => {
+    res.sendFile(`http://localhost:3000/${req.body.locale}`);
+});
+
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/frontend/'));
 });

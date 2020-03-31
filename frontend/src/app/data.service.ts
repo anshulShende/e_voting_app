@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-
+  
   constructor( private http: HttpClient ) { }
 
   showAllVoters(){
@@ -28,5 +28,11 @@ export class DataService {
     let body = new HttpParams();
     body = body.set('locale', locale);
     return this.http.post('/searchCandidates', body);
+  }
+
+  electionLogin(locale){
+    let body = new HttpParams();
+    body = body.set('locale', locale);
+    this.http.post('/startElection', body);
   }
 }
