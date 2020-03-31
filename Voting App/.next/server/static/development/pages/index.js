@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const compiledVoting = __webpack_require__(/*! ./build/Election.json */ "./Ethereum/build/Election.json");
 
-const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x02C2dE66D561D00D9D67A64E4972A8B11cA73b32');
+const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x4398be0CD0F000Fe8BCB7DD2FE185314988Df830');
 /* harmony default export */ __webpack_exports__["default"] = (instance);
 
 /***/ }),
@@ -280,34 +280,46 @@ class votingInstance extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       message: '',
       Loading: false,
       errorMessage: '',
-      addLoading: false
+      addLoading: false,
+      isButtonDisabled: false,
+      popupContent: 'Click this button to add candidates'
     });
 
     _defineProperty(this, "onAddCandidates", async event => {
-      event.preventDefault();
-      const accounts = await _Ethereum_web3__WEBPACK_IMPORTED_MODULE_7__["default"].eth.getAccounts();
-      const res = await axios__WEBPACK_IMPORTED_MODULE_6___default.a.get('http://localhost:5000/candidates');
-      console.log(res.data);
-      console.log(accounts[0]);
+      if (!this.state.isButtonDisabled) {
+        event.preventDefault();
+        const accounts = await _Ethereum_web3__WEBPACK_IMPORTED_MODULE_7__["default"].eth.getAccounts();
+        const res = await axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(`http://localhost:5000/candidates/${this.props.locale}`);
+        console.log(res.data);
+        console.log(accounts[0]);
 
-      for (var i = 2; i < 7; i++) {
-        try {
+        for (var i = 0; i < res.data.length; i++) {
+          try {
+            this.setState({
+              addLoading: true,
+              errorMessage: ''
+            });
+            await _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.addCandidate(res.data[i].name, res.data[i].partyName).send({
+              from: accounts[0]
+            });
+            _routes__WEBPACK_IMPORTED_MODULE_4__["Router"].pushRoute(`/${this.props.locale}`);
+          } catch (err) {
+            this.setState({
+              errorMessage: err.message
+            });
+          }
+
           this.setState({
-            addLoading: true,
-            errorMessage: ''
-          });
-          await _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.addCandidate(res.data[i].name, res.data[i].partyName).send({
-            from: accounts[0]
-          });
-          _routes__WEBPACK_IMPORTED_MODULE_4__["Router"].pushRoute('/');
-        } catch (err) {
-          this.setState({
-            errorMessage: err.message
+            addLoading: false
           });
         }
 
         this.setState({
-          addLoading: false
+          isButtonDisabled: true
+        });
+      } else {
+        this.setState({
+          popupContent: 'The Candidates have been added'
         });
       }
     });
@@ -358,17 +370,22 @@ class votingInstance extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       floated: "right",
       width: 2
     }, __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      route: "/votingTable"
+      route: `/${this.props.locale}/votingTable`
     }, __jsx("a", null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       primary: true
-    }, "Voter's Info"))))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Column, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-      primary: true,
-      icon: "add circle",
-      content: "Add Candidate",
-      onClick: this.onAddCandidates,
-      loading: this.state.addLoading
+    }, "Voter's Info"))))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Grid"].Column, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Popup"], {
+      content: this.state.popupContent,
+      on: "click",
+      pinned: true,
+      trigger: __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+        primary: true,
+        icon: "add circle",
+        content: "Add Candidate",
+        onClick: this.onAddCandidates,
+        loading: this.state.addLoading
+      })
     }), __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      route: "/vote"
+      route: `/${this.props.locale}/vote`
     }, __jsx("a", null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       floated: "right",
       primary: true
@@ -384,15 +401,17 @@ class votingInstance extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
 }
 
-_defineProperty(votingInstance, "getInitialProps", async () => {
+_defineProperty(votingInstance, "getInitialProps", async props => {
   const numCandidates = await _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.getNumCandidate().call();
+  const locale = props.query.locale;
   const candidates = await Promise.all(Array(parseInt(numCandidates)).fill().map((element, index) => {
     return _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.candidates(index).call();
   }));
   return {
     address: _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].options.address,
     number: numCandidates,
-    candidates: candidates
+    candidates: candidates,
+    locale: locale
   };
 });
 
@@ -409,7 +428,7 @@ _defineProperty(votingInstance, "getInitialProps", async () => {
 
 const routes = __webpack_require__(/*! next-routes */ "next-routes")();
 
-routes.add('/candidates/new', '/candidates/new').add('/votingTable', '/votingTable'); //.add('/campaigns/:address', '/campaigns/show')
+routes.add('/:locale', '/').add('/candidates/new', '/candidates/new').add('/:locale/votingTable', '/votingTable').add('/:locale/vote', '/vote'); //.add('/campaigns/:address', '/campaigns/show')
 //.add('/campaigns/:address/requests', '/campaigns/requests/index')
 //.add('/campaigns/:address/requests/new', '/campaigns/requests/new');
 

@@ -7,8 +7,9 @@ import RequestVotingRow from '../Components/RequestVotingRow'
 
 class VotingTable extends Component{
 
-    static getInitialProps = async () =>{
-
+    static getInitialProps = async (props) =>{
+        
+        const locale = props.query.locale;
         const numTransactions = await voting.methods.getNumberofTransactions().call()
         const transactions = await Promise.all(
             Array(parseInt(numTransactions))
@@ -20,7 +21,8 @@ class VotingTable extends Component{
 
         return{
             transactions : transactions,
-            numTransactions : numTransactions
+            numTransactions : numTransactions,
+            locale : locale
         }
     }
 
@@ -44,7 +46,7 @@ class VotingTable extends Component{
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
-                            <Link route = '/'>
+                            <Link route = {`/${this.props.locale}`}>
                                 <a>
                                     Homepage
                                 </a>
