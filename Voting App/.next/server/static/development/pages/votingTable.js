@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -212,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const compiledVoting = __webpack_require__(/*! ./build/Election.json */ "./Ethereum/build/Election.json");
 
-const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x02C2dE66D561D00D9D67A64E4972A8B11cA73b32');
+const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x4398be0CD0F000Fe8BCB7DD2FE185314988Df830');
 /* harmony default export */ __webpack_exports__["default"] = (instance);
 
 /***/ }),
@@ -292,7 +292,7 @@ class VotingTable extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       Row
     } = semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Table"];
     return __jsx(_Components_Layout__WEBPACK_IMPORTED_MODULE_3__["default"], null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Grid"], null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Grid"].Column, null, __jsx(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      route: "/"
+      route: `/${this.props.locale}`
     }, __jsx("a", null, "Homepage")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Grid"].Row, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_1__["Table"], {
       celled: true,
       textAlign: "center"
@@ -301,14 +301,16 @@ class VotingTable extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
 }
 
-_defineProperty(VotingTable, "getInitialProps", async () => {
+_defineProperty(VotingTable, "getInitialProps", async props => {
+  const locale = props.query.locale;
   const numTransactions = await _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.getNumberofTransactions().call();
   const transactions = await Promise.all(Array(parseInt(numTransactions)).fill().map((element, index) => {
     return _Ethereum_voting__WEBPACK_IMPORTED_MODULE_2__["default"].methods.transactions(index).call();
   }));
   return {
     transactions: transactions,
-    numTransactions: numTransactions
+    numTransactions: numTransactions,
+    locale: locale
   };
 });
 
@@ -325,7 +327,7 @@ _defineProperty(VotingTable, "getInitialProps", async () => {
 
 const routes = __webpack_require__(/*! next-routes */ "next-routes")();
 
-routes.add('/candidates/new', '/candidates/new').add('/votingTable', '/votingTable'); //.add('/campaigns/:address', '/campaigns/show')
+routes.add('/:locale', '/').add('/candidates/new', '/candidates/new').add('/:locale/votingTable', '/votingTable').add('/:locale/vote', '/vote'); //.add('/campaigns/:address', '/campaigns/show')
 //.add('/campaigns/:address/requests', '/campaigns/requests/index')
 //.add('/campaigns/:address/requests/new', '/campaigns/requests/new');
 
@@ -333,7 +335,7 @@ module.exports = routes;
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!************************************!*\
   !*** multi ./pages/votingTable.js ***!
   \************************************/

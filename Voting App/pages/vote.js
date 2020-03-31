@@ -15,6 +15,7 @@ class votingPage extends Component {
 
     static getInitialProps = async (props) =>{
 
+        const locale = props.query.locale;
         const numCandidates = await voting.methods.getNumCandidate().call()
 
         const candidates = await Promise.all(
@@ -28,6 +29,7 @@ class votingPage extends Component {
         return {
             numCandidates : numCandidates,
             candidates : candidates,
+            locale : locale
         }
     }
 
@@ -68,7 +70,7 @@ class votingPage extends Component {
             await voting.methods.addTransactions(
                 sA,tH, bH, bN, time).send({from : accounts[0]})
 
-            Router.pushRoute(`/votingTable`)
+            Router.pushRoute(`/${this.props.locale}/votingTable`)
         }catch(err){
             this.setState({errorMessage : err.message})
         }
@@ -82,7 +84,7 @@ class votingPage extends Component {
                 <Grid textAlign = "center">
                     <Grid.Row>
                         <Grid.Column>
-                            <Link route ='/'>
+                            <Link route = {`/${this.props.locale}`}>
                                 <a>
                                     Homepage
                                 </a>

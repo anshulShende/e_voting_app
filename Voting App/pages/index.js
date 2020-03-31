@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../Components/Layout'
 import voting from '../Ethereum/voting'
-import {Card, Grid, Button, Table} from 'semantic-ui-react'
+import {Card, Grid, Button, Table, Popup} from 'semantic-ui-react'
 import {Link, Router} from '../routes';
 import RequestRow from '../Components/RequestRow'
 import axios from 'axios';
@@ -13,12 +13,15 @@ class votingInstance extends Component{
         message : '',
         Loading : false,
         errorMessage : '',
-        addLoading : false
+        addLoading : false,
+        isButtonDisabled : false,
+        popupContent : 'Click this button to add candidates'
     }
 
-    static getInitialProps = async () =>{
+    static getInitialProps = async (props) =>{
 
         const numCandidates = await voting.methods.getNumCandidate().call();
+        const locale = props.query.locale;
         
         const candidates = await Promise.all(
             Array(parseInt(numCandidates))
@@ -27,12 +30,12 @@ class votingInstance extends Component{
                 return voting.methods.candidates(index).call()
             })
         )
-        
 
         return{
             address : voting.options.address,
             number : numCandidates,
-            candidates : candidates
+            candidates : candidates,
+            locale : locale
         }
     }
 
@@ -47,29 +50,36 @@ class votingInstance extends Component{
     }
 
     onAddCandidates = async(event) =>{
-        event.preventDefault();
 
-        const accounts = await web3.eth.getAccounts();
-        const res = await axios.get('http://localhost:5000/candidates');
-        console.log(res.data)
-        console.log(accounts[0]);
+        if(!this.state.isButtonDisabled){
+            event.preventDefault();
+
+            const accounts = await web3.eth.getAccounts();
+            const res = await axios.get(`http://localhost:5000/candidates/${this.props.locale}`);
+            console.log(res.data);
+            console.log(accounts[0]);
+            
+            for( var i = 0; i < res.data.length; i++ ){
+                try{
+                    this.setState({addLoading : true, errorMessage : ''})
+                    await voting.methods.addCandidate(res.data[i].name,res.data[i].partyName)
+                    .send({from : accounts[0]})
+                    Router.pushRoute(`/${this.props.locale}`);
+                } catch(err){
+                    this.setState({errorMessage : err.message})
+                }
+                this.setState({addLoading : false})
+            }     
+            this.setState({isButtonDisabled : true})
+        }
+        else{
+            this.setState({popupContent : 'The Candidates have been added'})
+        }
         
-        for( var i = 2; i < 7; i++ ){
-            try{
-                this.setState({addLoading : true, errorMessage : ''})
-                await voting.methods.addCandidate(res.data[i].name,res.data[i].partyName)
-                .send({from : accounts[0]})
-                Router.pushRoute('/');
-            } catch(err){
-                this.setState({errorMessage : err.message})
-            }
-            this.setState({addLoading : false})
-        }     
     }
 
     onClick = async(event) =>{
         event.preventDefault();
-
         
         var largest = 0;
         var index;
@@ -106,7 +116,7 @@ class votingInstance extends Component{
                             </Card>
                         </Grid.Column>
                         <Grid.Column floated = 'right' width = {2}>
-                                <Link route = '/votingTable'>
+                                <Link route = {`/${this.props.locale}/votingTable`}>
                                     <a>
                                         <Button primary>Voter's Info</Button>
                                     </a>
@@ -115,14 +125,19 @@ class votingInstance extends Component{
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <Button 
-                                primary 
-                                icon = "add circle"
-                                content = "Add Candidate"
-                                onClick = {this.onAddCandidates}
-                                loading = {this.state.addLoading}
+                            <Popup
+                                content = {this.state.popupContent}
+                                on = "click"
+                                pinned
+                                trigger = {<Button 
+                                    primary 
+                                    icon = "add circle"
+                                    content = "Add Candidate"
+                                    onClick = {this.onAddCandidates}
+                                    loading = {this.state.addLoading}
+                                    />}
                             />
-                            <Link route = '/vote'>
+                            <Link route = {`/${this.props.locale}/vote`}>
                                 <a>
                                     <Button  floated = "right" primary>Go to Vote</Button>    
                                 </a>
