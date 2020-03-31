@@ -443,7 +443,7 @@ module.exports = routes;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/anshulshende/Desktop/Rait/e_voting_app/Voting App/pages/index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! C:\Users\mappa\Desktop\Project\e_voting_app\Voting App\pages\index.js */"./pages/index.js");
 
 
 /***/ }),
