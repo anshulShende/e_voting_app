@@ -33,6 +33,6 @@ export class DataService {
   electionLogin(locale){
     let body = new HttpParams();
     body = body.set('locale', locale);
-    this.http.post('/startElection', body);
+    return this.http.post('/startElection', body);
   }
 }

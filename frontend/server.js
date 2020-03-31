@@ -63,8 +63,9 @@ app.post('/searchCandidates', (req,res) => {
     });
 });
 
-app.post('/startElection', (req,res) => {
-    res.redirect(`http://localhost:3000/${req.body.locale}`);
+app.post('/startElection', (req,res,next) => {
+    console.log("In here");
+    return res.redirect("https://www.google.com");
 });
 
 

@@ -16,7 +16,12 @@ export class ElectionComponent implements OnInit {
   }
   
   onElectionLogin(){
-    const locale = localStorage.getItem('locale');
-    this.dataService.electionLogin(locale);
+    console.log("start");
+    console.log("before :"+ window.location.href);
+    window.location.assign('http://localhost:3000/manpada');
+    console.log("After :"+ window.location.href);
+    // const locale = localStorage.getItem('locale');
+    // console.log(locale);
+    // this.dataService.electionLogin(locale).subscribe();
   }
 }

@@ -941,7 +941,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "C:\\Users\\mappa\\Desktop\\Project\\e_voting_app\\Voting App\\.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "/home/anshulshende/Desktop/Rait/e_voting_app/Voting App/.next");
       return error;
     }
   };
