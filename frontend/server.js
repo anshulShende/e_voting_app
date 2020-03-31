@@ -64,7 +64,7 @@ app.post('/searchCandidates', (req,res) => {
 });
 
 app.post('/startElection', (req,res) => {
-    res.sendFile(`http://localhost:3000/${req.body.locale}`);
+    res.redirect(`http://localhost:3000/${req.body.locale}`);
 });
 
 
