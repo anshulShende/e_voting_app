@@ -63,11 +63,21 @@ app.post('/searchCandidates', (req,res) => {
     });
 });
 
-app.post('/startElection', (req,res,next) => {
-    console.log("In here");
-    return res.redirect("https://www.google.com");
-});
+app.post('/authenticateVoterForElection', (req,res) => {
+    http.get(`http://localhost:5000/candidates/${req.body.name}/${req.body.password}`, (resp) => {
+        var body = [];
+        resp.on('data', function (data) {
+            body.push(data);
+        });
 
+        resp.on('end', function () {
+
+            res.send(body.join(''));
+        });
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/frontend/'));

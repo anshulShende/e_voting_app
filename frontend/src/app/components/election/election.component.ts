@@ -8,20 +8,27 @@ import { DataService } from 'src/app/data.service';
 })
 export class ElectionComponent implements OnInit {
 
+  isLoginError: boolean;
   constructor(
     private dataService: DataService
-  ) { }
+  ) { 
+    this.isLoginError = false;
+  }
 
   ngOnInit(): void {
   }
   
-  onElectionLogin(){
-    console.log("start");
-    console.log("before :"+ window.location.href);
-    window.location.assign('http://localhost:3000/manpada');
-    console.log("After :"+ window.location.href);
-    // const locale = localStorage.getItem('locale');
-    // console.log(locale);
-    // this.dataService.electionLogin(locale).subscribe();
+  onElectionLogin(name,password){
+    this.dataService.electionLogin(name, password).subscribe( (response:any) => {
+      if(response['0']['name'] === 'name'){
+        const locale = localStorage.getItem('locale');
+        console.log("before :"+ window.location.href);
+        window.location.assign(`http://localhost:3000/${locale}/vote`);
+        console.log("After :"+ window.location.href);
+      }else{
+        this.isLoginError = true;
+      }
+    });
   }
+
 }

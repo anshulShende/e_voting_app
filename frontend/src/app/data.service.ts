@@ -30,9 +30,10 @@ export class DataService {
     return this.http.post('/searchCandidates', body);
   }
 
-  electionLogin(locale){
+  electionLogin(name, password){
     let body = new HttpParams();
-    body = body.set('locale', locale);
-    return this.http.post('/startElection', body);
+    body = body.set('name', name);
+    body = body.set('password', password);
+    return this.http.post('/authenticateVoterForElection', body);
   }
 }
