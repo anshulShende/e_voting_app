@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff',
@@ -15,7 +16,8 @@ export class StaffComponent implements OnInit {
   isLoginSuccessful: boolean;
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) { 
     this.isPasswordInvalid = false;
     this.isLoginError = false;
@@ -50,8 +52,13 @@ export class StaffComponent implements OnInit {
     }
   }
 
+  onStart(){
+    this.router.navigateByUrl('election');
+  }
+
   onLogout(){
     this.isLoginSuccessful=false;
     this.staff = [];
+    localStorage.removeItem('locale');
   }
 }
