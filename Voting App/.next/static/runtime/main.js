@@ -941,7 +941,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "C:\\Users\\mappa\\Desktop\\Project\\e_voting_app\\Voting App\\.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "/home/anshulshende/Desktop/Rait/e_voting_app/Voting App/.next");
       return error;
     }
   };
@@ -2747,7 +2747,7 @@ if (!('finally' in Promise.prototype)) {
 
 var data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
 window.__NEXT_DATA__ = data;
-var version = "9.3.2";
+var version = "9.3.3";
 exports.version = version;
 var props = data.props,
     err = data.err,

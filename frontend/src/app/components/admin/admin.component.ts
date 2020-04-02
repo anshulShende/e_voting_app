@@ -12,4 +12,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onAdminLogin(){
+    window.location.assign("http://localhost:3000/manpada");
+  }
 }

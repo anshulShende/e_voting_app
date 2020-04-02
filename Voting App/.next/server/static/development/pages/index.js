@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const compiledVoting = __webpack_require__(/*! ./build/Election.json */ "./Ethereum/build/Election.json");
 
-const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x4398be0CD0F000Fe8BCB7DD2FE185314988Df830');
+const instance = new _web3__WEBPACK_IMPORTED_MODULE_0__["default"].eth.Contract(JSON.parse(compiledVoting.interface), '0x8DDBDF3D333D71DA177eB54116F648b5C3c2109f');
 /* harmony default export */ __webpack_exports__["default"] = (instance);
 
 /***/ }),
@@ -436,14 +436,14 @@ module.exports = routes;
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\mappa\Desktop\Project\e_voting_app\Voting App\pages\index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! /home/anshulshende/Desktop/Rait/e_voting_app/Voting App/pages/index.js */"./pages/index.js");
 
 
 /***/ }),

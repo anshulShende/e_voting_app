@@ -2,7 +2,7 @@
     <h3 class="alert alert-primary text-center" role="alert">
         Admin Login
     </h3>
-    <form>
+    <form >
         <div class="form-group col-md-12">
             <label for="inputEmail4">Name</label>
             <input type="text" #name class="form-control" id="email" placeholder="Username">
@@ -14,7 +14,7 @@
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary mb-2">LogIn</button>
+            <button type="submit" (click)="onAdminLogin()" class="btn btn-primary mb-2">LogIn</button>
         </div>
     </form>
 </div>

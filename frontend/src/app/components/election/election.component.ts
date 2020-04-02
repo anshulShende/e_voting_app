@@ -19,16 +19,18 @@ export class ElectionComponent implements OnInit {
   }
   
   onElectionLogin(name,password){
-    this.dataService.electionLogin(name, password).subscribe( (response:any) => {
-      if(response['0']['name'] === 'name'){
-        const locale = localStorage.getItem('locale');
-        console.log("before :"+ window.location.href);
-        window.location.assign(`http://localhost:3000/${locale}/vote`);
-        console.log("After :"+ window.location.href);
-      }else{
-        this.isLoginError = true;
-      }
-    });
+    const locale = localStorage.getItem('locale');
+    window.location.assign(`http://localhost:3000/${locale}/vote`);
+    // this.dataService.electionLogin(name, password).subscribe( (response:any) => {
+    //   if(response['0']['name'] === 'name'){
+    //     const locale = localStorage.getItem('locale');
+    //     console.log("before :"+ window.location.href);
+    //     window.location.assign(`http://localhost:3000/${locale}/vote`);
+    //     console.log("After :"+ window.location.href);
+    //   }else{
+    //     this.isLoginError = true;
+    //   }
+    // });
   }
 
 }
